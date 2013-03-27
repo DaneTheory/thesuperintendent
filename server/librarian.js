@@ -4,7 +4,7 @@ var constants = {
   "JSON": "application/json",
   // Implementation specific
   "DEFINITELYNOTTHESERVERPASSWORD": "",
-  "CLIENTURL": "",
+  "CLIENTURL": "*",
   // User Agent
   "USERAGENT": "The Superintendent - https://github.com/abedley/thesuperintendent",
   "REFERER": "https://app.halowaypoint.com/en-us/",
