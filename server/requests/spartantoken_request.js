@@ -1,6 +1,7 @@
 var request = require("request");
 var lib = require("../librarian");
-
+// This request gets your SpartanToken which allows you to authenticate on the Halo 4 endpoints
+// This is the fourth request
 function getSpartanToken(accessToken, callback) {
   request({
     "url": lib.constants.SPARTANTOKENURL,
@@ -11,8 +12,9 @@ function getSpartanToken(accessToken, callback) {
     }
   }, function (error, response, body) {
     try {
-      var spartantoken = JSON.parse(body).SpartanToken,
-        gamertag = JSON.parse(body).UserInformation.Gamertag;
+      var parsedResponse = JSON.parse(body);
+      var spartantoken = parsedResponse.SpartanToken,
+        gamertag = parsedResponse.UserInformation.Gamertag; // The gamertag is required for creating the endpoint url
       console.log("INFO: Got spartantoken");
       var tokenTag = {
         "spartanToken": spartantoken,
@@ -25,5 +27,4 @@ function getSpartanToken(accessToken, callback) {
     }
   });
 }
-
 exports.execute = getSpartanToken;

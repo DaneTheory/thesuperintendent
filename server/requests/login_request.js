@@ -1,6 +1,7 @@
 var request = require("request");
 var lib = require("../librarian");
-
+// This request logs you into Windows Live
+// This is the second request
 function getLogin(username, password, url, ppft, ppsx, callback) {
   request.post({
     "url": url,
@@ -27,7 +28,7 @@ function getLogin(username, password, url, ppft, ppsx, callback) {
 
     }
   }, function (error, response, body) {
-    if (response == null || response.headers == null || response.headers.location == null) {
+    if (response == null || response.headers == null || response.headers.location == null) { // We should be redirected to Halo Waypoint
       console.log("ERR: Died redirecting");
       callback(null, "No redirect");
     } else {
@@ -39,5 +40,4 @@ function getLogin(username, password, url, ppft, ppsx, callback) {
     }
   });
 }
-
 exports.execute = getLogin;

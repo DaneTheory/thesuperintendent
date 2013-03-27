@@ -7,6 +7,7 @@ var lib = require("./librarian"),
 // Endpoints
   commendEndpoint = require("./endpoints/commendation_endpoint");
 
+// The only exit point in the request life cycle - all responses come through here
 function composeSimpleResponse(response, statusCode, body, bodyContent) {
   response.writeHead(statusCode, {
     "Content-Type": bodyContent,
@@ -18,7 +19,8 @@ function composeSimpleResponse(response, statusCode, body, bodyContent) {
 
 // Authenticates and then gets a user's commendation data
 function composeCommendationResponse(user, pass, response) {
-  //session -> login -> waypoint -> spartan -> commend
+  // session -> login -> waypoint -> spartan -> commend
+  // On error, send a 500
   sessionRequest.execute(function (session_response, session_error) {
     if (session_error != null)
       composeSimpleResponse(response, 500, session_error, lib.constants.PLAINTEXT);
@@ -38,7 +40,7 @@ function composeCommendationResponse(user, pass, response) {
                   commendEndpoint.get(spartan_response.spartanToken, spartan_response.gamertag, function (commend_response, commend_error) {
                     if (commend_error != null)
                       composeSimpleResponse(response, 500, commend_error, lib.constants.PLAINTEXT);
-                    else {
+                    else { // success -> return commendation data as json
                       composeSimpleResponse(response, 200, commend_response, lib.constants.JSON);
                     }
                   });
