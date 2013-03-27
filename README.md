@@ -7,7 +7,7 @@ This repo is for developers who want to set up their own superintendent server. 
 ###Fast Setup
 
     git clone git://github.com/abedley/thesuperintendent.git
-    cd server
+    cd thesuperintendent/server
     node index.js
   
 Navigate to
